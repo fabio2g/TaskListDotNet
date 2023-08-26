@@ -12,13 +12,14 @@ namespace src
             while (true)
             {
                 Console.WriteLine("#### Menu To Do List ####");
-                Console.WriteLine("1 - Adicionar Tarefa.");
-                Console.WriteLine("2 - Finalizar Programa.");
+                Console.WriteLine("1 - Adicionar tarefa.");
+                Console.WriteLine("2 - Atualizar Tarefa.");
+                Console.WriteLine("3 - Listar tarefas.");
+                Console.WriteLine("4 - Deletar Tarefa.");
+                Console.WriteLine("5 - Finalizar Programa.");
 
                 if (taskList.Count > 0)
                 {
-                    Console.WriteLine("3 - Atualizar Tarefa.");
-                    Console.WriteLine("4 - Deletar Tarefa.");
                 }
 
                 Console.WriteLine();
@@ -36,28 +37,35 @@ namespace src
 
                 if (option == 1)
                 {
-                    int id = TaskListUtil.AddNextId(taskList);
-
-                    Console.Write("Descrição: ");
-                    string description = Console.ReadLine(); // Lê a descrição da tarefa
-
-                    Task newTask = new Task(id, description); // Cria uma nova tarefa
-
-                    taskList.Add(newTask); // Adiciona a tarefa à lista
-
-                    Console.Write("\nLista de tarefas:");
-                    foreach (var task in taskList)
+                    try
                     {
-                        Console.Write(task); // Mostra a lista de tarefas
-                    }
+                        Task newTask = new Task();
 
-                    Console.WriteLine("\n");
+                        Console.Write("Nova tarefa: ");
+                        string description = Console.ReadLine(); // Lê a descrição da tarefa
+
+                        if(description == null)
+                        {
+                            Console.WriteLine("A tarefa é obrigatória.\n");
+                            return;
+                        }
+
+                        newTask.setId(TaskListUtil.CreateNextId(taskList));
+                        newTask.setDescription(description);
+
+                        taskList.Add(newTask);
+
+                        Console.Write("\nLista de tarefas:");
+                        TaskListUtil.InfoList(taskList);
+
+                        Console.WriteLine("\n");
+
+                    } catch(Exception)
+                    {
+                        Console.WriteLine("\nErro ao adiciona tarefa.\n");
+                    }
                 }
                 else if (option == 2)
-                {
-                    break; // Sai do loop e finaliza o programa
-                }
-                else if (option == 3)
                 {
                     try
                     {
@@ -67,75 +75,44 @@ namespace src
                         Console.Write("Nova tarefa: ");
                         string description = Console.ReadLine();
 
-                        UpdateTaskDescription(taskList, idToUpdate, description);
+                        TaskListUtil.UpdateTaskDescription(taskList, idToUpdate, description);
                     }
                     catch (Exception)
                     {
                         Console.WriteLine("\nOpção inválida.\n");
                     }
                 }
+                else if(option == 3)
+                {
+
+                }
                 else if (option == 4)
                 {
-                    Console.Write("\nInforme o ID a ser removido: ");
-
-                    int idToRemove = 0;
                     try
                     {
-                        idToRemove = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("\nInforme o ID a ser removido: ");
+
+                        int idToRemove = Convert.ToInt32(Console.ReadLine());
+
+                        TaskListUtil.RemoveTaskById(taskList, idToRemove);
+                        TaskListUtil.ReindexTasks(taskList);
+
+                        Console.Write("\nLista de tarefas:");
+                        TaskListUtil.InfoList(taskList);
+
                     } catch (Exception)
                     {
                         Console.WriteLine("\nOpção inválida.\n");
                     }
-
-                    RemoveTaskById(taskList, idToRemove);
-                    ReindexTasks(taskList);
-
-                    Console.Write("\nLista de tarefas:");
-                    foreach (var task in taskList)
-                    {
-                        Console.Write(task); // Mostra a lista de tarefas
-                    }
                     Console.WriteLine("\n");
                 }
-            }
-        }
-
-        // Função para remover uma tarefa da lista de tarefas
-        static void RemoveTaskById(List<Task> tasks, int taskId)
-        {
-            Task taskToRemove = tasks.Find(task => task.getId() == taskId);
-
-            if (taskToRemove != null && taskId > 0)
-            {
-                tasks.Remove(taskToRemove);
-            }
-        }
-
-        static void ReindexTasks(List<Task> taskList)
-        {
-            int newId = 1;
-            foreach (var task in taskList)
-            {
-                task.setId(newId++); // Atualiza os IDs sequencialmente
-            }
-        }
-
-        static void UpdateTaskDescription(List<Task> taskList, int id, string description)
-        {
-            try
-            {
-                Task taskUpdate = taskList.Find(task => task.getId() == id);
-
-                if (taskUpdate != null)
+                else if (option == 5)
                 {
-                    taskUpdate.setDescription(description);
-
-                    Console.WriteLine("\nTarefa atualizada com sucesso.\n");
+                    break; // Sai do loop e finaliza o programa
                 }
-            } catch (Exception)
-            {
-                Console.WriteLine($"Failed to update task description: {description}");
-            } 
+            }
         }
+
+        
     }
 }

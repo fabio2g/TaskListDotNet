@@ -11,6 +11,8 @@ namespace src
         private int Id;
         private string Description;
 
+        public Task() { }
+
         public Task(int id, string description)
         {
             this.Id = id;
