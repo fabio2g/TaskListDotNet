@@ -27,6 +27,11 @@ namespace src
             return this.Id;
         }
 
+        public string setDescription(string description)
+        {
+            return Description = description;
+        }
+
         public override string ToString()
         {
             return $"\n{{ Id: {Id}, Description: {Description} }}";

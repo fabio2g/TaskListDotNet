@@ -16,7 +16,8 @@ namespace src
 
                 if (taskList.Count > 0)
                 {
-                    Console.WriteLine("3 - Deletar Tarefa.");
+                    Console.WriteLine("3 - Atualizar Tarefa.");
+                    Console.WriteLine("4 - Deletar Tarefa.");
                 }
 
                 Console.WriteLine();
@@ -27,7 +28,7 @@ namespace src
                 {
                     option = Convert.ToInt32(Console.ReadLine()); // Lê a opção escolhida
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("\nOpção inválida.\n");
                 }
@@ -57,8 +58,33 @@ namespace src
                 }
                 else if (option == 3)
                 {
+                    try
+                    {
+                        Console.Write("\nInforme o ID da tarefa a ser atualizada: ");
+                        int idToUpdate = Convert.ToInt32(Console.ReadLine());
+
+                        Console.Write("\nTarefa: ");
+                        string description = Console.ReadLine();
+
+                        UpdateTaskDescription(taskList, idToUpdate, description);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("\nOpção inválida.\n");
+                    }
+                }
+                else if (option == 4)
+                {
                     Console.Write("\nInforme o ID a ser removido: ");
-                    int idToRemove = Convert.ToInt32(Console.ReadLine());
+
+                    int idToRemove = 0;
+                    try
+                    {
+                        idToRemove = Convert.ToInt32(Console.ReadLine());
+                    } catch (Exception)
+                    {
+                        Console.WriteLine("\nOpção inválida.\n");
+                    }
 
                     RemoveTaskById(taskList, idToRemove);
                     ReindexTasks(taskList);
@@ -82,7 +108,8 @@ namespace src
         static void RemoveTaskById(List<Task> tasks, int taskId)
         {
             Task taskToRemove = tasks.Find(task => task.getId() == taskId);
-            if (taskToRemove != null)
+
+            if (taskToRemove != null && taskId > 0)
             {
                 tasks.Remove(taskToRemove);
             }
@@ -95,6 +122,24 @@ namespace src
             {
                 task.setId(newId++); // Atualiza os IDs sequencialmente
             }
+        }
+
+        static void UpdateTaskDescription(List<Task> taskList, int id, string description)
+        {
+            try
+            {
+                Task taskUpdate = taskList.Find(task => task.getId() == id);
+
+                if (taskUpdate != null)
+                {
+                    taskUpdate.setDescription(description);
+
+                    Console.WriteLine("\nTarefa atualizada com sucesso.\n");
+                }
+            } catch (Exception)
+            {
+                Console.WriteLine($"Failed to update task description: {description}");
+            } 
         }
     }
 }
