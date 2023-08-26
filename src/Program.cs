@@ -1,4 +1,5 @@
-﻿using System;
+﻿using src.Util;
+using System;
 
 namespace src
 {
@@ -35,7 +36,7 @@ namespace src
 
                 if (option == 1)
                 {
-                    int id = NextId(taskList); // Obtém o próximo ID disponível
+                    int id = TaskListUtil.AddNextId(taskList);
 
                     Console.Write("Descrição: ");
                     string description = Console.ReadLine(); // Lê a descrição da tarefa
@@ -63,7 +64,7 @@ namespace src
                         Console.Write("\nInforme o ID da tarefa a ser atualizada: ");
                         int idToUpdate = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Write("\nTarefa: ");
+                        Console.Write("Nova tarefa: ");
                         string description = Console.ReadLine();
 
                         UpdateTaskDescription(taskList, idToUpdate, description);
@@ -97,11 +98,6 @@ namespace src
                     Console.WriteLine("\n");
                 }
             }
-        }
-        // Função para gerar o próximo ID
-        private static int NextId(List<Task> list)
-        {
-            return list.Count + 1; // Retorna o próximo ID sequencial
         }
 
         // Função para remover uma tarefa da lista de tarefas
