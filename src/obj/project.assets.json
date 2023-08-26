@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\src\\src.csproj",
+      "projectUniqueName": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\src.csproj",
       "projectName": "src",
-      "projectPath": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\src\\src.csproj",
+      "projectPath": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\src.csproj",
       "packagesPath": "C:\\Users\\Fabio\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\src\\obj\\",
+      "outputPath": "C:\\Users\\Fabio\\Projetos\\TaskListDotNet\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fabio\\AppData\\Roaming\\NuGet\\NuGet.Config",
