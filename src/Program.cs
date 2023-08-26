@@ -1,4 +1,6 @@
-﻿namespace src
+﻿using System;
+
+namespace src
 {
     class Program
     {
