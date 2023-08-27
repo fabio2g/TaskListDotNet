@@ -9,9 +9,14 @@ namespace src
     class Task
     {
         private int Id;
+        private string Title;
         private string Description;
+        private DateTime Timestamp;
 
-        public Task() { }
+        public Task() 
+        {
+            Timestamp = DateTime.Now;
+        }
 
         public Task(int id, string description)
         {
@@ -29,6 +34,16 @@ namespace src
             return this.Id;
         }
 
+        public string getTitle()
+        {
+            return this.Title;
+        }
+
+        public void setTitle(string title)
+        {
+            this.Title = title;
+        }
+
         public string setDescription(string description)
         {
             return Description = description;
@@ -36,7 +51,7 @@ namespace src
 
         public override string ToString()
         {
-            return $"\n{{ id: {Id}, description: {Description} }}";
+            return $"\n{{ id: {Id}, description: {Description}, timestamp: {Timestamp} }}";
         }
     }
 }

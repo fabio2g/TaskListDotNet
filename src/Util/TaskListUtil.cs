@@ -14,8 +14,6 @@ namespace src.Util
             {
                 if (taskList == null) throw new Exception("Ouve um erro ao exibir a lista.");
 
-                if (taskList.Count == 0) throw new Exception("A lista está vazia.\n");
-
                 if(id > 0)
                 {
                     Task item = taskList.Find(task => task.getId() == id);
