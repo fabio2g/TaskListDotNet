@@ -97,6 +97,9 @@ namespace src
                         int id = Convert.ToInt32(Console.ReadLine());
 
                         TaskListUtil.InfoList(taskList, id);
+                    } else
+                    {
+                        Console.WriteLine("\nOpção inválida.\n");
                     }
                 }
                 else if (option == 4) // Deletar Tarefa
