@@ -162,8 +162,6 @@ namespace src
                     break; // Sai do loop e finaliza o programa
                 }
             }
-        }
-
-        
+        } 
     }
 }
