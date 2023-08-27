@@ -1,5 +1,5 @@
 ﻿using src.Util;
-using System;
+using System.Globalization;
 
 namespace src
 {
@@ -11,24 +11,25 @@ namespace src
 
             while (true)
             {
-                Console.WriteLine("#### Menu To Do List ####");
+                Console.WriteLine("#### MENU TO DO LIST ####");
                 Console.WriteLine("1 - Adicionar tarefa.");
                 Console.WriteLine("2 - Atualizar Tarefa.");
                 Console.WriteLine("3 - Listar tarefas.");
                 Console.WriteLine("4 - Deletar Tarefa.");
-                Console.WriteLine("5 - Finalizar Programa.");
-
-                if (taskList.Count > 0)
-                {
-                }
-
-                Console.WriteLine();
+                Console.WriteLine("5 - Finalizar Programa.\n");
 
                 Console.Write("Opção: ");
+
                 int option = 0;
+    
                 try
                 {
                     option = Convert.ToInt32(Console.ReadLine()); // Lê a opção escolhida
+
+                    if(option < 1 || option > 5)
+                    {
+                        throw new Exception();
+                    }
                 }
                 catch (Exception)
                 {
@@ -65,14 +66,14 @@ namespace src
                         Console.WriteLine("\nErro ao adiciona tarefa.\n");
                     }
                 }
-                else if (option == 2)
+                else if (option == 2) // Atualizar Tarefa
                 {
                     try
                     {
                         Console.Write("\nInforme o ID da tarefa a ser atualizada: ");
                         int idToUpdate = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Write("Nova tarefa: ");
+                        Console.Write("Tarefa: ");
                         string description = Console.ReadLine();
 
                         TaskListUtil.UpdateTaskDescription(taskList, idToUpdate, description);
@@ -82,29 +83,36 @@ namespace src
                         Console.WriteLine("\nOpção inválida.\n");
                     }
                 }
-                else if(option == 3)
+                else if (option == 3) // Listar tarefas
                 {
+                    Console.Write("Deseja listar todas as tarefas? [S/N]: ");
+                    string response = Console.ReadLine();
 
+                    if(response == "S" || response == "s")
+                    {
+                        TaskListUtil.InfoList(taskList);
+                    } else if (response == "N" || response == "n") 
+                    { 
+                        Console.Write("Informe o ID da tarefa: ");
+                        int id = Convert.ToInt32(Console.ReadLine());
+
+                        TaskListUtil.InfoList(taskList, id);
+                    }
                 }
-                else if (option == 4)
+                else if (option == 4) // Deletar Tarefa
                 {
                     try
                     {
-                        Console.Write("\nInforme o ID a ser removido: ");
+                        Console.Write("Informe o ID a ser removido: ");
 
                         int idToRemove = Convert.ToInt32(Console.ReadLine());
 
                         TaskListUtil.RemoveTaskById(taskList, idToRemove);
-                        TaskListUtil.ReindexTasks(taskList);
-
-                        Console.Write("\nLista de tarefas:");
-                        TaskListUtil.InfoList(taskList);
-
+                        Console.Write("aqui");
                     } catch (Exception)
                     {
                         Console.WriteLine("\nOpção inválida.\n");
                     }
-                    Console.WriteLine("\n");
                 }
                 else if (option == 5)
                 {

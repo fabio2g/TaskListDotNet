@@ -36,7 +36,7 @@ namespace src
 
         public override string ToString()
         {
-            return $"\n{{ Id: {Id}, Description: {Description} }}";
+            return $"\n{{ id: {Id}, description: {Description} }}";
         }
     }
 }

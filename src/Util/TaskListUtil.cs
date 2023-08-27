@@ -8,12 +8,33 @@ namespace src.Util
 {
     static class TaskListUtil
     {
-        public static void InfoList(List<Task> listTask)
+        public static void InfoList(List<Task> taskList, int id = 0)
         {
-            foreach (var task in listTask)
+            try
             {
-                Console.Write(task);
+                if (taskList == null) throw new Exception("Ouve um erro ao exibir a lista.");
+
+                if (taskList.Count == 0) throw new Exception("A lista está vazia.\n");
+
+                if(id > 0)
+                {
+                    Task item = taskList.Find(task => task.getId() == id);
+
+                    if (item == null) throw new Exception("Id inválido.");
+
+                    Console.WriteLine(item);
+                } else
+                {
+                    foreach (var task in taskList)
+                    {
+                        Console.Write(task);
+                    }
+                }  
             }
+            catch(Exception error) 
+            {
+                Console.WriteLine(error.Message);
+            } 
         }
 
         // Função para gerar o próximo ID
@@ -27,19 +48,33 @@ namespace src.Util
         {
             try
             {
-                if (taskList == null || id <= 0) throw new Exception();
-
+                if (taskList == null)
+                {
+                    throw new Exception("\nA lista de tarefas está nula.\n");
+                    return;
+                }
+                else if (taskList.Count == 0)
+                {
+                    throw new Exception("\nA lista de tarefas está vazia.\n");
+                    return;
+                }
                 Task taskToRemove = taskList.Find(task => task.getId() == id);
 
                 taskList.Remove(taskToRemove);
-            } catch(Exception)
+                ReindexTasks(taskList);
+
+                Console.Write("\nLista de tarefas:");
+                InfoList(taskList);
+
+            } catch(Exception error)
             {
-                Console.WriteLine("\nHouve um erro ao remover tarefa.\n");
+                Console.WriteLine(error.Message);
             }
         }
 
         public static void ReindexTasks(List<Task> taskList)
         {
+           
             int newId = 1;
             foreach(var task in taskList)
             {
@@ -51,7 +86,7 @@ namespace src.Util
         {
             try
             {
-                if (taskList == null || id <= 0 || description == null) return;
+                if (taskList == null || id <= 0 || description == null) throw new Exception();
 
                 Task taskUpdate = taskList.Find(task => task.getId() == id);
 
