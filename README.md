@@ -1,4 +1,4 @@
-# To-Do List Console Application
+# To Do List
 
 Este é um simples aplicativo de lista de tarefas em console, criado em C#. Ele permite que você adicione, liste e remova tarefas. O aplicativo foi desenvolvido como parte de um exercício de programação.
 
