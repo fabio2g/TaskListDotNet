@@ -81,16 +81,25 @@ namespace src
                         {
                             Console.WriteLine("A lista está vazia\n");
                             
-                        } else
+                        }
+                        else
                         {
                             Console.Write("\nInforme o ID da tarefa a ser atualizada: ");
                             int idToUpdate = Convert.ToInt32(Console.ReadLine());
 
-                            Console.Write("Tarefa: ");
-                            string description = Console.ReadLine();
+                            Task item = taskList.Find(task => task.getId() == idToUpdate);
 
-                            TaskListUtil.UpdateTaskDescription(taskList, idToUpdate, description);
+                            if (item == null)
+                            {
+                                Console.WriteLine("Id inválido.\n");
+                            } 
+                            else 
+                            {
+                                Console.Write("Tarefa: ");
+                                string description = Console.ReadLine();
 
+                                TaskListUtil.UpdateTaskDescription(taskList, idToUpdate, description);
+                            }
                         } 
                     }
                     catch (Exception)
